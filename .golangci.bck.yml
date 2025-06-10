@@ -1,0 +1,24 @@
+linters:
+  enable:
+    - bodyclose
+    - contextcheck
+    - errcheck
+    - errorlint
+    - exportloopref
+    - gocritic
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - nilerr
+    - nilnil
+    - noctx
+    - nolintlint
+    - prealloc
+    - predeclared
+    - reassign
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - wastedassign

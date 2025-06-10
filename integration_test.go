@@ -1,0 +1,46 @@
+package damap_integration_test
+
+import (
+	"context"
+	"fmt"
+	"testing"
+
+	"github.com/tuwien-csd/damap-integration"
+	"github.com/tuwien-csd/damap-integration/client"
+)
+
+func TestIntegration(t *testing.T) {
+	t.Logf("⚙️ Creating integration server...")
+	srv, err := damap_integration.New(
+		damap_integration.WithListen("127.0.0.1:0"),
+	)
+	if err != nil {
+		t.Fatalf("❌ Failed to create integration server: %v", err)
+	}
+	t.Logf("🚀 Starting integration server...")
+	integration, err := srv.Start()
+	if err != nil {
+		t.Fatalf("❌ Failed to create integration server: %v", err)
+	}
+	t.Cleanup(func() {
+		t.Logf("🛑 Stopping integration server...")
+		if err := integration.Stop(context.Background()); err != nil {
+			t.Fatalf("❌ Failed to stop integration server: %v", err)
+		}
+	})
+
+	t.Logf("⚙️ Creating integration client...")
+	//goland:noinspection HttpUrlsUsage
+	cli, err := client.New(fmt.Sprintf("http://%s/api/", integration.GetListen())) //nolint:gosec //This is a test case
+	if err != nil {
+		t.Fatalf("❌ Failed to create client: %v", err)
+	}
+	t.Logf("📂 Requesting project list...")
+	projects, err := cli.GetProjects(context.Background())
+	if err != nil {
+		t.Fatalf("❌ Failed to request project list: %v", err)
+	}
+	if len(projects) == 0 {
+		t.Fatalf("❌ The returned project list is empty!")
+	}
+}

@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/oapi-codegen/oapi-codegen/v2.4.1/configuration-schema.json
+package: internal
+output: server/internal/server.gen.go
+generate:
+  std-http-server: true
+  strict-server: true
+additional-imports:
+  - alias: .
+    package: github.com/tuwien-csd/damap-integration/domain
