@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	damap_integration "github.com/tuwien-csd/damap-integration"
+	damap_integration "github.com/damap-org/damap-integration"
 )
 
 func TestEnvParsing(t *testing.T) {

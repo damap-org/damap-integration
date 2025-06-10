@@ -6,9 +6,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/tuwien-csd/damap-integration/backend"
-	"github.com/tuwien-csd/damap-integration/domain"
-	api "github.com/tuwien-csd/damap-integration/server/internal"
+	"github.com/damap-org/damap-integration/backend"
+	"github.com/damap-org/damap-integration/domain"
+	api "github.com/damap-org/damap-integration/server/internal"
 )
 
 // NewHandler creates a net/http-compatible handler with the provided backend.

@@ -7,7 +7,7 @@ This is an integration server for the DAMAP project written in Go. Its architect
 You can build the server by running the following command:
 
 ```
-go build -o damap-integration github.com/tuwien-csd/damap-integration/cmd/damap-integration
+go build -o damap-integration github.com/damap-org/damap-integration/cmd/damap-integration
 ```
 
 ## Configuration

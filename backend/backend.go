@@ -1,7 +1,7 @@
 package backend
 
 import (
-	"github.com/tuwien-csd/damap-integration/domain"
+	"github.com/damap-org/damap-integration/domain"
 )
 
 // Descriptor serves as a backend descriptor. Its only job is to return a config struct that can be filled based on

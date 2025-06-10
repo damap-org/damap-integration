@@ -6,4 +6,4 @@ generate:
   models: false
 additional-imports:
   - alias: .
-    package: github.com/tuwien-csd/damap-integration/domain
+    package: github.com/damap-org/damap-integration/domain

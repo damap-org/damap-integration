@@ -6,7 +6,7 @@ import (
 	"net/netip"
 	"reflect"
 
-	"github.com/tuwien-csd/damap-integration/backend"
+	"github.com/damap-org/damap-integration/backend"
 )
 
 // NewConfig returns a Config preconfigured with the default values.

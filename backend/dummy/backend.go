@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/tuwien-csd/damap-integration/backend"
-	"github.com/tuwien-csd/damap-integration/domain"
+	"github.com/damap-org/damap-integration/backend"
+	"github.com/damap-org/damap-integration/domain"
 )
 
 //go:embed people.json

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	cli "github.com/tuwien-csd/damap-integration/client/internal"
-	"github.com/tuwien-csd/damap-integration/domain"
+	cli "github.com/damap-org/damap-integration/client/internal"
+	"github.com/damap-org/damap-integration/domain"
 )
 
 func New(endpoint string) (Client, error) {

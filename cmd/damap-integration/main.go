@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/tuwien-csd/damap-integration"
+	"github.com/damap-org/damap-integration"
 )
 
 func main() {

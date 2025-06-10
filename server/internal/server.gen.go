@@ -13,7 +13,7 @@ import (
 
 	"github.com/oapi-codegen/runtime"
 	strictnethttp "github.com/oapi-codegen/runtime/strictmiddleware/nethttp"
-	. "github.com/tuwien-csd/damap-integration/domain"
+	. "github.com/damap-org/damap-integration/domain"
 )
 
 // ServerInterface represents all server handlers.

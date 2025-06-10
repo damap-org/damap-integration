@@ -3,7 +3,7 @@ FROM golang:1.23 AS build
 COPY . /src
 ENV CGO_ENABLED=0
 WORKDIR /src
-RUN go build -o /damap-integration github.com/tuwien-csd/damap-integration/cmd/damap-integration
+RUN go build -o /damap-integration github.com/damap-org/damap-integration/cmd/damap-integration
 
 FROM scratch
 COPY --from=build /damap-integration /damap-integration

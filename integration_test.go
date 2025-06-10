@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/tuwien-csd/damap-integration"
-	"github.com/tuwien-csd/damap-integration/client"
+	"github.com/damap-org/damap-integration"
+	"github.com/damap-org/damap-integration/client"
 )
 
 func TestIntegration(t *testing.T) {

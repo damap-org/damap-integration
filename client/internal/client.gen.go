@@ -13,7 +13,7 @@ import (
 	"strings"
 
 	"github.com/oapi-codegen/runtime"
-	. "github.com/tuwien-csd/damap-integration/domain"
+	. "github.com/damap-org/damap-integration/domain"
 )
 
 // RequestEditorFn  is the function signature for the RequestEditor callback function

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/tuwien-csd/damap-integration"
+	"github.com/damap-org/damap-integration"
 )
 
 func TestWithCLI(t *testing.T) {

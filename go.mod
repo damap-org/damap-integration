@@ -1,4 +1,4 @@
-module github.com/tuwien-csd/damap-integration
+module github.com/damap-org/damap-integration
 
 go 1.24
 

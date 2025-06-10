@@ -3,7 +3,7 @@ package damap_integration_test
 import (
 	"testing"
 
-	damap_integration "github.com/tuwien-csd/damap-integration"
+	damap_integration "github.com/damap-org/damap-integration"
 )
 
 func TestNewConfig(t *testing.T) {

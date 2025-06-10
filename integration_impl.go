@@ -15,8 +15,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tuwien-csd/damap-integration/backend"
-	"github.com/tuwien-csd/damap-integration/server"
+	"github.com/damap-org/damap-integration/backend"
+	"github.com/damap-org/damap-integration/server"
 )
 
 func New(
