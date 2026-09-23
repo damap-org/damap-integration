@@ -1,88 +1,80 @@
 [
   {
-    "acronym": "PROJ.ACRONYM",
-    "universityId": "uniProjectId0",
-    "description": "Project description text.",
-    "title": "Project Title",
-    "funding": null,
-    "start": "2022-01-01T00:00:00.000Z",
-    "end": "2024-12-31T00:00:00.000Z",
-    "dmpExists": false
+    "acronym": "AI-2026",
+    "description": "Artificial intelligence research project",
+    "end": "2028-12-31T00:00:00Z",
+    "funding": [
+      {
+        "funderId": {
+          "identifier": "funder-001",
+          "type": "other"
+        },
+        "fundingStatus": "funded",
+        "grantId": {
+          "identifier": "grant-001",
+          "type": "other"
+        }
+      }
+    ],
+    "projectId": [
+      {
+        "identifier": "project-001",
+        "type": "other"
+      }
+    ],
+    "start": "2026-01-01T00:00:00Z",
+    "title": "Artificial Intelligence Research"
   },
   {
-    "acronym": "PROJ.NO-FUNDING",
-    "universityId": "uniProjectIdNoFunding0",
-    "description": "This project has no funding and is recommended.",
-    "title": "No Funding Sample Project",
-    "funding": null,
-    "start": "2022-01-01T00:00:00.000Z",
-    "end": "2024-12-31T00:00:00.000Z",
-    "dmpExists": false
+    "acronym": "DATA-2026",
+    "description": "Research data management and preservation",
+    "end": "2029-06-30T00:00:00Z",
+    "funding": [
+      {
+        "funderId": {
+          "identifier": "funder-002",
+          "type": "other"
+        },
+        "fundingStatus": "pending",
+        "grantId": {
+          "identifier": "grant-002",
+          "type": "other"
+        }
+      }
+    ],
+    "projectId": [
+      {
+        "identifier": "project-002",
+        "type": "other"
+      }
+    ],
+    "start": "2026-07-01T00:00:00Z",
+    "title": "Research Data Management"
   },
   {
-    "acronym": "PROJ.HORIZON-EUROPE",
-    "universityId": "uniProjectIdHorizonEurope0",
-    "description": "This project is funded by the EU and is recommended.",
-    "title": "Horizon Europe Sample Project",
-    "funding": {
-      "fundingName": null,
-      "fundingProgram": null,
-      "funderId": {
-        "identifier": "501100000780",
-        "type": "FUNDREF"
-      },
-      "grantId": {
-        "identifier": null,
-        "type": null
-      },
-      "fundingStatus": "GRANTED"
-    },
-    "start": "2022-01-01T00:00:00.000Z",
-    "end": "2024-12-31T00:00:00.000Z",
-    "dmpExists": false
-  },
-  {
-    "acronym": "PROJ.FWF",
-    "universityId": "uniProjectIdFWF0",
-    "description": "This project is funded by the FWF and is recommended.",
-    "title": "FWF Sample Project",
-    "funding": {
-      "fundingName": null,
-      "fundingProgram": null,
-      "funderId": {
-        "identifier": "501100002428",
-        "type": "FUNDREF"
-      },
-      "grantId": {
-        "identifier": null,
-        "type": null
-      },
-      "fundingStatus": "GRANTED"
-    },
-    "start": "2022-01-01T00:00:00.000Z",
-    "end": "2024-12-31T00:00:00.000Z",
-    "dmpExists": false
-  },
-  {
-    "acronym": "PROJ.UNKNOWN-FUNDING",
-    "universityId": "uniProjectIdUnknownFunder0",
-    "description": "This project is funded by an unknown entity and is recommended.",
-    "title": "Unknown Funder Sample Project",
-    "funding": {
-      "fundingName": null,
-      "fundingProgram": null,
-      "funderId": {
-        "identifier": "501100004955",
-        "type": "FUNDREF"
-      },
-      "grantId": {
-        "identifier": null,
-        "type": null
-      },
-      "fundingStatus": "GRANTED"
-    },
-    "start": "2022-01-01T00:00:00.000Z",
-    "end": "2024-12-31T00:00:00.000Z",
-    "dmpExists": false
+    "acronym": "CLIMATE-2026",
+    "description": "Climate change and environmental monitoring",
+    "end": "2030-12-31T00:00:00Z",
+    "funding": [
+      {
+        "funderId": {
+          "identifier": "funder-003",
+          "type": "other"
+        },
+        "fundingStatus": "funded",
+        "grantId": {
+          "identifier": "grant-003",
+          "type": "other"
+        }
+      }
+    ],
+    "projectId": [
+      {
+        "identifier": "project-003",
+        "type": "other"
+      }
+    ],
+    "start": "2026-03-01T00:00:00Z",
+    "title": "Climate and Environmental Monitoring"
   }
 ]

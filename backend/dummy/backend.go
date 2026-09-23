@@ -63,10 +63,34 @@ func (d *dummyBackend) GetConfiguration() backend.Configuration {
 	return d
 }
 
-func (d *dummyBackend) GetProjects() ([]domain.Project, error) {
+func (d *dummyBackend) GetProject(_ string) (*domain.Project, error) {
+	return &d.projects[0], nil
+}
+
+func (d *dummyBackend) GetStaffForProject(_ string) ([]domain.Person, error) {
+	return d.people, nil
+}
+
+func (d *dummyBackend) GetLeaderForProject(_ string) (*domain.Person, error) {
+	return &d.people[0], nil
+}
+
+func (d *dummyBackend) GetRecommendedProjects(_ string) ([]domain.Project, error) {
 	return d.projects, nil
 }
 
-func (d *dummyBackend) GetPeople(_ string) ([]domain.Person, error) {
+func (d *dummyBackend) SearchProjects(_ string) ([]domain.Project, error) {
+	return d.projects, nil
+}
+
+func (d *dummyBackend) GetProjectSupplements(_ string) (*domain.ProjectSupplement, error) {
+	return nil, nil
+}
+
+func (d *dummyBackend) GetPerson(_ string) (*domain.Person, error) {
+	return &d.people[0], nil
+}
+
+func (d *dummyBackend) SearchPersons(_ string) ([]domain.Person, error) {
 	return d.people, nil
 }

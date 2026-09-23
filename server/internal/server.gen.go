@@ -11,19 +11,37 @@ import (
 	"fmt"
 	"net/http"
 
+	. "github.com/damap-org/damap-integration/domain"
 	"github.com/oapi-codegen/runtime"
 	strictnethttp "github.com/oapi-codegen/runtime/strictmiddleware/nethttp"
-	. "github.com/damap-org/damap-integration/domain"
 )
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// Get all projects
+	// Search persons
+	// (GET /persons)
+	SearchPersons(w http.ResponseWriter, r *http.Request, params SearchPersonsParams)
+	// Get person with id
+	// (GET /persons/{personId})
+	GetPerson(w http.ResponseWriter, r *http.Request, personId string)
+	// Search projects
 	// (GET /projects)
-	GetProjects(w http.ResponseWriter, r *http.Request)
+	SearchProjects(w http.ResponseWriter, r *http.Request, params SearchProjectsParams)
+	// Get recommended projects determined by query
+	// (GET /projects/recommended)
+	GetRecommendedProjects(w http.ResponseWriter, r *http.Request, params GetRecommendedProjectsParams)
+	// Get project with id
+	// (GET /projects/{projectId})
+	GetProject(w http.ResponseWriter, r *http.Request, projectId string)
+	// Get leader for project
+	// (GET /projects/{projectId}/leader)
+	GetLeaderForProject(w http.ResponseWriter, r *http.Request, projectId string)
 	// Get staff for project
 	// (GET /projects/{projectId}/staff)
 	GetStaffForProject(w http.ResponseWriter, r *http.Request, projectId string)
+	// Get supplemental project information
+	// (GET /projects/{projectId}/supplements)
+	GetProjectSupplements(w http.ResponseWriter, r *http.Request, projectId string)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -35,11 +53,174 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetProjects operation middleware
-func (siw *ServerInterfaceWrapper) GetProjects(w http.ResponseWriter, r *http.Request) {
+// SearchPersons operation middleware
+func (siw *ServerInterfaceWrapper) SearchPersons(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SearchPersonsParams
+
+	// ------------- Required query parameter "query" -------------
+
+	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
+
+	} else {
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
+		return
+	}
+
+	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		return
+	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetProjects(w, r)
+		siw.Handler.SearchPersons(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetPerson operation middleware
+func (siw *ServerInterfaceWrapper) GetPerson(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// ------------- Path parameter "personId" -------------
+	var personId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "personId", r.PathValue("personId"), &personId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "personId", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetPerson(w, r, personId)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// SearchProjects operation middleware
+func (siw *ServerInterfaceWrapper) SearchProjects(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SearchProjectsParams
+
+	// ------------- Required query parameter "query" -------------
+
+	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
+
+	} else {
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
+		return
+	}
+
+	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.SearchProjects(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetRecommendedProjects operation middleware
+func (siw *ServerInterfaceWrapper) GetRecommendedProjects(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetRecommendedProjectsParams
+
+	// ------------- Required query parameter "query" -------------
+
+	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
+
+	} else {
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
+		return
+	}
+
+	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetRecommendedProjects(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetProject operation middleware
+func (siw *ServerInterfaceWrapper) GetProject(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// ------------- Path parameter "projectId" -------------
+	var projectId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectId", r.PathValue("projectId"), &projectId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "projectId", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetProject(w, r, projectId)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetLeaderForProject operation middleware
+func (siw *ServerInterfaceWrapper) GetLeaderForProject(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// ------------- Path parameter "projectId" -------------
+	var projectId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectId", r.PathValue("projectId"), &projectId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "projectId", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetLeaderForProject(w, r, projectId)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -65,6 +246,31 @@ func (siw *ServerInterfaceWrapper) GetStaffForProject(w http.ResponseWriter, r *
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetStaffForProject(w, r, projectId)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetProjectSupplements operation middleware
+func (siw *ServerInterfaceWrapper) GetProjectSupplements(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// ------------- Path parameter "projectId" -------------
+	var projectId string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "projectId", r.PathValue("projectId"), &projectId, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "projectId", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetProjectSupplements(w, r, projectId)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -194,40 +400,276 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 		ErrorHandlerFunc:   options.ErrorHandlerFunc,
 	}
 
-	m.HandleFunc("GET "+options.BaseURL+"/projects", wrapper.GetProjects)
+	m.HandleFunc("GET "+options.BaseURL+"/persons", wrapper.SearchPersons)
+	m.HandleFunc("GET "+options.BaseURL+"/persons/{personId}", wrapper.GetPerson)
+	m.HandleFunc("GET "+options.BaseURL+"/projects", wrapper.SearchProjects)
+	m.HandleFunc("GET "+options.BaseURL+"/projects/recommended", wrapper.GetRecommendedProjects)
+	m.HandleFunc("GET "+options.BaseURL+"/projects/{projectId}", wrapper.GetProject)
+	m.HandleFunc("GET "+options.BaseURL+"/projects/{projectId}/leader", wrapper.GetLeaderForProject)
 	m.HandleFunc("GET "+options.BaseURL+"/projects/{projectId}/staff", wrapper.GetStaffForProject)
+	m.HandleFunc("GET "+options.BaseURL+"/projects/{projectId}/supplements", wrapper.GetProjectSupplements)
 
 	return m
 }
 
-type GetProjectsRequestObject struct {
+type SearchPersonsRequestObject struct {
+	Params SearchPersonsParams
 }
 
-type GetProjectsResponseObject interface {
-	VisitGetProjectsResponse(w http.ResponseWriter) error
+type SearchPersonsResponseObject interface {
+	VisitSearchPersonsResponse(w http.ResponseWriter) error
 }
 
-type GetProjects200JSONResponse []Project
+type SearchPersons200JSONResponse []Person
 
-func (response GetProjects200JSONResponse) VisitGetProjectsResponse(w http.ResponseWriter) error {
+func (response SearchPersons200JSONResponse) VisitSearchPersonsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetProjects500JSONResponse InternalError
+type SearchPersons400JSONResponse BadRequestError
 
-func (response GetProjects500JSONResponse) VisitGetProjectsResponse(w http.ResponseWriter) error {
+func (response SearchPersons400JSONResponse) VisitSearchPersonsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type SearchPersons500JSONResponse InternalError
+
+func (response SearchPersons500JSONResponse) VisitSearchPersonsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetProjects502JSONResponse BadGatewayError
+type SearchPersons502JSONResponse BadGatewayError
 
-func (response GetProjects502JSONResponse) VisitGetProjectsResponse(w http.ResponseWriter) error {
+func (response SearchPersons502JSONResponse) VisitSearchPersonsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetPersonRequestObject struct {
+	PersonId string `json:"personId"`
+}
+
+type GetPersonResponseObject interface {
+	VisitGetPersonResponse(w http.ResponseWriter) error
+}
+
+type GetPerson200JSONResponse Person
+
+func (response GetPerson200JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetPerson400JSONResponse BadRequestError
+
+func (response GetPerson400JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetPerson500JSONResponse InternalError
+
+func (response GetPerson500JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetPerson502JSONResponse BadGatewayError
+
+func (response GetPerson502JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type SearchProjectsRequestObject struct {
+	Params SearchProjectsParams
+}
+
+type SearchProjectsResponseObject interface {
+	VisitSearchProjectsResponse(w http.ResponseWriter) error
+}
+
+type SearchProjects200JSONResponse []Project
+
+func (response SearchProjects200JSONResponse) VisitSearchProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type SearchProjects400JSONResponse BadRequestError
+
+func (response SearchProjects400JSONResponse) VisitSearchProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type SearchProjects500JSONResponse InternalError
+
+func (response SearchProjects500JSONResponse) VisitSearchProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type SearchProjects502JSONResponse BadGatewayError
+
+func (response SearchProjects502JSONResponse) VisitSearchProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetRecommendedProjectsRequestObject struct {
+	Params GetRecommendedProjectsParams
+}
+
+type GetRecommendedProjectsResponseObject interface {
+	VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error
+}
+
+type GetRecommendedProjects200JSONResponse []Project
+
+func (response GetRecommendedProjects200JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetRecommendedProjects400JSONResponse BadRequestError
+
+func (response GetRecommendedProjects400JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetRecommendedProjects500JSONResponse InternalError
+
+func (response GetRecommendedProjects500JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetRecommendedProjects502JSONResponse BadGatewayError
+
+func (response GetRecommendedProjects502JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProjectRequestObject struct {
+	ProjectId string `json:"projectId"`
+}
+
+type GetProjectResponseObject interface {
+	VisitGetProjectResponse(w http.ResponseWriter) error
+}
+
+type GetProject200JSONResponse Project
+
+func (response GetProject200JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProject400JSONResponse BadRequestError
+
+func (response GetProject400JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProject500JSONResponse InternalError
+
+func (response GetProject500JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProject502JSONResponse BadGatewayError
+
+func (response GetProject502JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetLeaderForProjectRequestObject struct {
+	ProjectId string `json:"projectId"`
+}
+
+type GetLeaderForProjectResponseObject interface {
+	VisitGetLeaderForProjectResponse(w http.ResponseWriter) error
+}
+
+type GetLeaderForProject200JSONResponse Person
+
+func (response GetLeaderForProject200JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetLeaderForProject400JSONResponse BadRequestError
+
+func (response GetLeaderForProject400JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetLeaderForProject500JSONResponse InternalError
+
+func (response GetLeaderForProject500JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetLeaderForProject502JSONResponse BadGatewayError
+
+func (response GetLeaderForProject502JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(502)
 
@@ -278,14 +720,76 @@ func (response GetStaffForProject502JSONResponse) VisitGetStaffForProjectRespons
 	return json.NewEncoder(w).Encode(response)
 }
 
+type GetProjectSupplementsRequestObject struct {
+	ProjectId string `json:"projectId"`
+}
+
+type GetProjectSupplementsResponseObject interface {
+	VisitGetProjectSupplementsResponse(w http.ResponseWriter) error
+}
+
+type GetProjectSupplements200JSONResponse ProjectSupplement
+
+func (response GetProjectSupplements200JSONResponse) VisitGetProjectSupplementsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProjectSupplements400JSONResponse BadRequestError
+
+func (response GetProjectSupplements400JSONResponse) VisitGetProjectSupplementsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProjectSupplements500JSONResponse InternalError
+
+func (response GetProjectSupplements500JSONResponse) VisitGetProjectSupplementsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetProjectSupplements502JSONResponse BadGatewayError
+
+func (response GetProjectSupplements502JSONResponse) VisitGetProjectSupplementsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(502)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
-	// Get all projects
+	// Search persons
+	// (GET /persons)
+	SearchPersons(ctx context.Context, request SearchPersonsRequestObject) (SearchPersonsResponseObject, error)
+	// Get person with id
+	// (GET /persons/{personId})
+	GetPerson(ctx context.Context, request GetPersonRequestObject) (GetPersonResponseObject, error)
+	// Search projects
 	// (GET /projects)
-	GetProjects(ctx context.Context, request GetProjectsRequestObject) (GetProjectsResponseObject, error)
+	SearchProjects(ctx context.Context, request SearchProjectsRequestObject) (SearchProjectsResponseObject, error)
+	// Get recommended projects determined by query
+	// (GET /projects/recommended)
+	GetRecommendedProjects(ctx context.Context, request GetRecommendedProjectsRequestObject) (GetRecommendedProjectsResponseObject, error)
+	// Get project with id
+	// (GET /projects/{projectId})
+	GetProject(ctx context.Context, request GetProjectRequestObject) (GetProjectResponseObject, error)
+	// Get leader for project
+	// (GET /projects/{projectId}/leader)
+	GetLeaderForProject(ctx context.Context, request GetLeaderForProjectRequestObject) (GetLeaderForProjectResponseObject, error)
 	// Get staff for project
 	// (GET /projects/{projectId}/staff)
 	GetStaffForProject(ctx context.Context, request GetStaffForProjectRequestObject) (GetStaffForProjectResponseObject, error)
+	// Get supplemental project information
+	// (GET /projects/{projectId}/supplements)
+	GetProjectSupplements(ctx context.Context, request GetProjectSupplementsRequestObject) (GetProjectSupplementsResponseObject, error)
 }
 
 type StrictHandlerFunc = strictnethttp.StrictHTTPHandlerFunc
@@ -317,23 +821,155 @@ type strictHandler struct {
 	options     StrictHTTPServerOptions
 }
 
-// GetProjects operation middleware
-func (sh *strictHandler) GetProjects(w http.ResponseWriter, r *http.Request) {
-	var request GetProjectsRequestObject
+// SearchPersons operation middleware
+func (sh *strictHandler) SearchPersons(w http.ResponseWriter, r *http.Request, params SearchPersonsParams) {
+	var request SearchPersonsRequestObject
+
+	request.Params = params
 
 	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetProjects(ctx, request.(GetProjectsRequestObject))
+		return sh.ssi.SearchPersons(ctx, request.(SearchPersonsRequestObject))
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetProjects")
+		handler = middleware(handler, "SearchPersons")
 	}
 
 	response, err := handler(r.Context(), w, r, request)
 
 	if err != nil {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetProjectsResponseObject); ok {
-		if err := validResponse.VisitGetProjectsResponse(w); err != nil {
+	} else if validResponse, ok := response.(SearchPersonsResponseObject); ok {
+		if err := validResponse.VisitSearchPersonsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetPerson operation middleware
+func (sh *strictHandler) GetPerson(w http.ResponseWriter, r *http.Request, personId string) {
+	var request GetPersonRequestObject
+
+	request.PersonId = personId
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetPerson(ctx, request.(GetPersonRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetPerson")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetPersonResponseObject); ok {
+		if err := validResponse.VisitGetPersonResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// SearchProjects operation middleware
+func (sh *strictHandler) SearchProjects(w http.ResponseWriter, r *http.Request, params SearchProjectsParams) {
+	var request SearchProjectsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.SearchProjects(ctx, request.(SearchProjectsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "SearchProjects")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(SearchProjectsResponseObject); ok {
+		if err := validResponse.VisitSearchProjectsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetRecommendedProjects operation middleware
+func (sh *strictHandler) GetRecommendedProjects(w http.ResponseWriter, r *http.Request, params GetRecommendedProjectsParams) {
+	var request GetRecommendedProjectsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetRecommendedProjects(ctx, request.(GetRecommendedProjectsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetRecommendedProjects")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetRecommendedProjectsResponseObject); ok {
+		if err := validResponse.VisitGetRecommendedProjectsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetProject operation middleware
+func (sh *strictHandler) GetProject(w http.ResponseWriter, r *http.Request, projectId string) {
+	var request GetProjectRequestObject
+
+	request.ProjectId = projectId
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetProject(ctx, request.(GetProjectRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetProject")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetProjectResponseObject); ok {
+		if err := validResponse.VisitGetProjectResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetLeaderForProject operation middleware
+func (sh *strictHandler) GetLeaderForProject(w http.ResponseWriter, r *http.Request, projectId string) {
+	var request GetLeaderForProjectRequestObject
+
+	request.ProjectId = projectId
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetLeaderForProject(ctx, request.(GetLeaderForProjectRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetLeaderForProject")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetLeaderForProjectResponseObject); ok {
+		if err := validResponse.VisitGetLeaderForProjectResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
@@ -360,6 +996,32 @@ func (sh *strictHandler) GetStaffForProject(w http.ResponseWriter, r *http.Reque
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetStaffForProjectResponseObject); ok {
 		if err := validResponse.VisitGetStaffForProjectResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetProjectSupplements operation middleware
+func (sh *strictHandler) GetProjectSupplements(w http.ResponseWriter, r *http.Request, projectId string) {
+	var request GetProjectSupplementsRequestObject
+
+	request.ProjectId = projectId
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetProjectSupplements(ctx, request.(GetProjectSupplementsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetProjectSupplements")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetProjectSupplementsResponseObject); ok {
+		if err := validResponse.VisitGetProjectSupplementsResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

@@ -10,20 +10,31 @@ info:
 servers:
   - url: http://localhost:8080/api/
 paths:
-  /projects:
+  /projects/{projectId}:
     get:
-      summary: Get all projects
-      description: Returns all available projects
-      operationId: getProjects
+      summary: Get project with id
+      description: Returns project with id
+      operationId: getProject
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: A list of all projects
+          description: Project with id
           content:
             application/json:
               schema:
-                type: array
-                items:
                   $ref: '#/components/schemas/Project'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
         500:
           description: The integration server encountered an internal error.
           content:
@@ -75,6 +86,234 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadGatewayError"
+  /projects/{projectId}/supplements:
+    get:
+      summary: Get supplemental project information
+      description: Returns additional project information for project with id
+      operationId: getProjectSupplements
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project supplement for project with id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectSupplement'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
+  /projects/{projectId}/leader:
+    get:
+      summary: Get leader for project
+      description: Returns the persons leading a project.
+      operationId: getLeaderForProject
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A persons leading the project.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Person'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
+  /projects/recommended:
+    get:
+      summary: Get recommended projects determined by query
+      description: Returns recommended projects
+      operationId: getRecommendedProjects
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query used to find recommended projects
+          schema:
+            type: string
+      responses:
+        '200':
+          description: RecommendedProjects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
+  /projects:
+    get:
+      summary: Search projects
+      description: Returns projects matching the provided query
+      operationId: searchProjects
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query used to find projects
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Projects matching the search query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
+  /persons/{personId}:
+    get:
+      summary: Get person with id
+      description: Returns person with id
+      operationId: getPerson
+      parameters:
+        - name: personId
+          in: path
+          description: ID of the person
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Person with id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
+  /persons:
+    get:
+      summary: Search persons
+      description: Returns persons matching the provided query
+      operationId: searchPersons
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search query used to find persons
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Persons matching the search query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        400:
+          description: You have sent an invalid request. Please fix your request and try again.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+        500:
+          description: The integration server encountered an internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+        502:
+          description: "The integration server is currently unable to fetch the requested data, please try again later."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadGatewayError"
 components:
   schemas:
     Project:
@@ -82,29 +321,30 @@ components:
       properties:
         acronym:
           type: string
-        universityId:
-          type: string
+        projectId:
+          type: array
+          items:
+            $ref: "#/components/schemas/ID"
         description:
           type: string
         title:
           type: string
         funding:
-          $ref: "#/components/schemas/Funding"
+          type: array
+          items:
+            $ref: "#/components/schemas/Funding"
         start:
           type: string
           format: date-time
         end:
           type: string
           format: date-time
-        dmpExists:
-          type: boolean
+      required:
+        - projectId
+        - title
     Funding:
       type: object
       properties:
-        fundingName:
-          type: string
-        fundingProgram:
-          type: string
         funderId:
           $ref: "#/components/schemas/ID"
         grantId:
@@ -121,28 +361,51 @@ components:
       required:
         - identifier
         - type
+    ProjectSupplement:
+      type: object
+      properties:
+        personalData:
+          type: boolean
+        sensitiveData:
+          type: boolean
+        legalRestrictions:
+          type: boolean
+        humanParticipants:
+          type: boolean
+        ethicalIssuesExist:
+          type: boolean
+        committeeReviewed:
+          type: boolean
+        costsExist:
+          type: boolean
     Person:
       type: object
       properties:
-        universityId:
-          type: string
-        personId:
+        contributorId:
           $ref: "#/components/schemas/ID"
-        firstName:
-          type: string
-        lastName:
+        name:
           type: string
         mbox:
           type: string
           format: email
         affiliation:
-          type: string
+          type: array
+          items:
+            $ref: "#/components/schemas/Affiliation"
+        role:
+          type: array
+          items:
+            type: string
+    Affiliation:
+      type: object
+      properties:
         affiliationId:
           $ref: "#/components/schemas/ID"
-        contact:
-          type: boolean
-        roleInProject:
+        name:
           type: string
+      required:
+        - affiliationId
+        - name
     InternalError:
       $ref: "#/components/schemas/Error"
     BadGatewayError:

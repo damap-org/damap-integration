@@ -9,6 +9,12 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Affiliation defines model for Affiliation.
+type Affiliation struct {
+	AffiliationId ID     `json:"affiliationId"`
+	Name          string `json:"name"`
+}
+
 // BadGatewayError defines model for BadGatewayError.
 type BadGatewayError = Error
 
@@ -22,11 +28,9 @@ type Error struct {
 
 // Funding defines model for Funding.
 type Funding struct {
-	FunderId       *ID     `json:"funderId,omitempty"`
-	FundingName    *string `json:"fundingName,omitempty"`
-	FundingProgram *string `json:"fundingProgram,omitempty"`
-	FundingStatus  *string `json:"fundingStatus,omitempty"`
-	GrantId        *ID     `json:"grantId,omitempty"`
+	FunderId      *ID     `json:"funderId,omitempty"`
+	FundingStatus *string `json:"fundingStatus,omitempty"`
+	GrantId       *ID     `json:"grantId,omitempty"`
 }
 
 // ID defines model for ID.
@@ -40,25 +44,49 @@ type InternalError = Error
 
 // Person defines model for Person.
 type Person struct {
-	Affiliation   *string              `json:"affiliation,omitempty"`
-	AffiliationId *ID                  `json:"affiliationId,omitempty"`
-	Contact       *bool                `json:"contact,omitempty"`
-	FirstName     *string              `json:"firstName,omitempty"`
-	LastName      *string              `json:"lastName,omitempty"`
+	Affiliation   *[]Affiliation       `json:"affiliation,omitempty"`
+	ContributorId *ID                  `json:"contributorId,omitempty"`
 	Mbox          *openapi_types.Email `json:"mbox,omitempty"`
-	PersonId      *ID                  `json:"personId,omitempty"`
-	RoleInProject *string              `json:"roleInProject,omitempty"`
-	UniversityId  *string              `json:"universityId,omitempty"`
+	Name          *string              `json:"name,omitempty"`
+	Role          *[]string            `json:"role,omitempty"`
 }
 
 // Project defines model for Project.
 type Project struct {
-	Acronym      *string    `json:"acronym,omitempty"`
-	Description  *string    `json:"description,omitempty"`
-	DmpExists    *bool      `json:"dmpExists,omitempty"`
-	End          *time.Time `json:"end,omitempty"`
-	Funding      *Funding   `json:"funding,omitempty"`
-	Start        *time.Time `json:"start,omitempty"`
-	Title        *string    `json:"title,omitempty"`
-	UniversityId *string    `json:"universityId,omitempty"`
+	Acronym     *string    `json:"acronym,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	End         *time.Time `json:"end,omitempty"`
+	Funding     *[]Funding `json:"funding,omitempty"`
+	ProjectId   []ID       `json:"projectId"`
+	Start       *time.Time `json:"start,omitempty"`
+	Title       string     `json:"title"`
+}
+
+// ProjectSupplement defines model for ProjectSupplement.
+type ProjectSupplement struct {
+	CommitteeReviewed  *bool `json:"committeeReviewed,omitempty"`
+	CostsExist         *bool `json:"costsExist,omitempty"`
+	EthicalIssuesExist *bool `json:"ethicalIssuesExist,omitempty"`
+	HumanParticipants  *bool `json:"humanParticipants,omitempty"`
+	LegalRestrictions  *bool `json:"legalRestrictions,omitempty"`
+	PersonalData       *bool `json:"personalData,omitempty"`
+	SensitiveData      *bool `json:"sensitiveData,omitempty"`
+}
+
+// SearchPersonsParams defines parameters for SearchPersons.
+type SearchPersonsParams struct {
+	// Query Search query used to find persons
+	Query string `form:"query" json:"query"`
+}
+
+// SearchProjectsParams defines parameters for SearchProjects.
+type SearchProjectsParams struct {
+	// Query Search query used to find projects
+	Query string `form:"query" json:"query"`
+}
+
+// GetRecommendedProjectsParams defines parameters for GetRecommendedProjects.
+type GetRecommendedProjectsParams struct {
+	// Query Search query used to find recommended projects
+	Query string `form:"query" json:"query"`
 }
