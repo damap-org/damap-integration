@@ -87,6 +87,9 @@ type SearchProjectsParams struct {
 
 // GetRecommendedProjectsParams defines parameters for GetRecommendedProjects.
 type GetRecommendedProjectsParams struct {
-	// Query Search query used to find recommended projects
-	Query string `form:"query" json:"query"`
+	// Email User email used to find recommended projects for user
+	Email string `form:"email" json:"email"`
+
+	// Name User name used to find recommended projects for user
+	Name string `form:"name" json:"name"`
 }

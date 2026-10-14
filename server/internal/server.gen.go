@@ -154,18 +154,33 @@ func (siw *ServerInterfaceWrapper) GetRecommendedProjects(w http.ResponseWriter,
 	// Parameter object where we will unmarshal all parameters from the context
 	var params GetRecommendedProjectsParams
 
-	// ------------- Required query parameter "query" -------------
+	// ------------- Required query parameter "email" -------------
 
-	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
+	if paramValue := r.URL.Query().Get("email"); paramValue != "" {
 
 	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "email"})
 		return
 	}
 
-	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	err = runtime.BindQueryParameter("form", true, true, "email", r.URL.Query(), &params.Email)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "email", Err: err})
+		return
+	}
+
+	// ------------- Required query parameter "name" -------------
+
+	if paramValue := r.URL.Query().Get("name"); paramValue != "" {
+
+	} else {
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "name"})
+		return
+	}
+
+	err = runtime.BindQueryParameter("form", true, true, "name", r.URL.Query(), &params.Name)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "name", Err: err})
 		return
 	}
 

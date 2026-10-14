@@ -166,10 +166,16 @@ paths:
       description: Returns recommended projects
       operationId: getRecommendedProjects
       parameters:
-        - name: query
+        - name: email
           in: query
           required: true
-          description: Search query used to find recommended projects
+          description: User email used to find recommended projects for user
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: true
+          description: User name used to find recommended projects for user
           schema:
             type: string
       responses:

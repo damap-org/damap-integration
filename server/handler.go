@@ -77,7 +77,7 @@ func (h handler) GetLeaderForProject(_ context.Context, request api.GetLeaderFor
 }
 
 func (h handler) GetRecommendedProjects(_ context.Context, request api.GetRecommendedProjectsRequestObject) (api.GetRecommendedProjectsResponseObject, error) {
-	projects, err := h.backend.GetRecommendedProjects(request.Params.Query)
+	projects, err := h.backend.GetRecommendedProjects(request.Params.Email, request.Params.Name)
 	if err != nil {
 		return nil, err
 	}

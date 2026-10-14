@@ -75,7 +75,7 @@ func (d *dummyBackend) GetLeaderForProject(_ string) (*domain.Person, error) {
 	return &d.people[0], nil
 }
 
-func (d *dummyBackend) GetRecommendedProjects(_ string) ([]domain.Project, error) {
+func (d *dummyBackend) GetRecommendedProjects(_ string, _ string) ([]domain.Project, error) {
 	return d.projects, nil
 }
 

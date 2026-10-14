@@ -44,7 +44,7 @@ type ConfiguredBackend interface {
 	GetProject(projectId string) (*domain.Project, error)
 	GetStaffForProject(projectId string) ([]domain.Person, error)
 	GetLeaderForProject(projectId string) (*domain.Person, error)
-	GetRecommendedProjects(query string) ([]domain.Project, error)
+	GetRecommendedProjects(email string, name string) ([]domain.Project, error)
 	SearchProjects(query string) ([]domain.Project, error)
 	GetProjectSupplements(query string) (*domain.ProjectSupplement, error)
 
