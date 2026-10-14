@@ -1,189 +1,102 @@
 [
   {
-    "universityId": "654321",
-    "personId": {
-      "identifier":  "admin_orcid_id0",
-      "type": "ORCID"
+    "name": "Alice Smith",
+    "mbox": "alice.smith@example.com",
+    "contributorId": {
+      "identifier": "alice-smith-001",
+      "type": "other"
     },
-    "firstName": "Admin",
-    "lastName": "Admin",
-    "mbox": "admin.admin@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "123456",
-    "personId": {
-      "identifier":  "user_orcid_id0",
-      "type": "ORCID"
+    "name": "Bob Johnson",
+    "mbox": "bob.johnson@example.com",
+    "contributorId": {
+      "identifier": "bob-johnson-002",
+      "type": "other"
     },
-    "firstName": "User",
-    "lastName": "User",
-    "mbox": "mbox@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "rose_tennsion_uni_id",
-    "personId": {
-      "identifier":  "rose_tennison_orcid_id0",
-      "type": "ORCID"
+    "name": "Carol Williams",
+    "mbox": "carol.williams@example.com",
+    "contributorId": {
+      "identifier": "carol-williams-003",
+      "type": "other"
     },
-    "firstName": "Rose",
-    "lastName": "Tennison",
-    "mbox": "rose.tennison@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "karl_sylvester_uni_id",
-    "personId": {
-      "identifier":  "karl_sylvester_orcid_id0",
-      "type": "ORCID"
+    "name": "David Brown",
+    "mbox": "david.brown@example.com",
+    "contributorId": {
+      "identifier": "david-brown-004",
+      "type": "other"
     },
-    "firstName": "Karl",
-    "lastName": "Sylvester",
-    "mbox": "karl.sylvester@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "amanda_jones_uni_id",
-    "personId": {
-      "identifier":  "amanda_jones_orcid_id0",
-      "type": "ORCID"
+    "name": "Eva Miller",
+    "mbox": "eva.miller@example.com",
+    "contributorId": {
+      "identifier": "eva-miller-005",
+      "type": "other"
     },
-    "firstName": "Amanda",
-    "lastName": "Jones",
-    "mbox": "amanda.jones@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "benjamin_martinez_uni_id",
-    "personId": {
-      "identifier":  "benjamin_martinez_orcid_id0",
-      "type": "ORCID"
+    "name": "Frank Davis",
+    "mbox": "frank.davis@example.com",
+    "contributorId": {
+      "identifier": "frank-davis-006",
+      "type": "other"
     },
-    "firstName": "Benjamin",
-    "lastName": "Martinez",
-    "mbox": "benjamin.martinez@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "chloe_thompson_uni_id",
-    "personId": {
-      "identifier":  "chloe_thompson_orcid_id0",
-      "type": "ORCID"
+    "name": "Grace Wilson",
+    "mbox": "grace.wilson@example.com",
+    "contributorId": {
+      "identifier": "grace-wilson-007",
+      "type": "other"
     },
-    "firstName": "Chloe",
-    "lastName": "Thompson",
-    "mbox": "chloe.thompson@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "david_rodriguez_uni_id",
-    "personId": {
-      "identifier":  "david_rodriguez_orcid_id0",
-      "type": "ORCID"
+    "name": "Henry Moore",
+    "mbox": "henry-moore@example.com",
+    "contributorId": {
+      "identifier": "henry-moore-008",
+      "type": "other"
     },
-    "firstName": "David",
-    "lastName": "Rodriguez",
-    "mbox": "david.rodriguez@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "emily_lee_uni_id",
-    "personId": {
-      "identifier":  "emily_lee_orcid_id0",
-      "type": "ORCID"
+    "name": "Irene Taylor",
+    "mbox": "irene.taylor@example.com",
+    "contributorId": {
+      "identifier": "irene-taylor-009",
+      "type": "other"
     },
-    "firstName": "Emily",
-    "lastName": "Lee",
-    "mbox": "emily.lee@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   },
   {
-    "universityId": "henry_smith_uni_id",
-    "personId": {
-      "identifier":  "henry_smith_orcid_id0",
-      "type": "ORCID"
+    "name": "Jack Anderson",
+    "mbox": "jack.anderson@example.com",
+    "contributorId": {
+      "identifier": "jack-anderson-010",
+      "type": "other"
     },
-    "firstName": "Henry",
-    "lastName": "Smith",
-    "mbox": "henry.smith@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
-  },
-  {
-    "universityId": "isabella_johnson_uni_id",
-    "personId": {
-      "identifier":  "isabella_johnson_orcid_id0",
-      "type": "ORCID"
-    },
-    "firstName": "Isabella",
-    "lastName": "Johnson",
-    "mbox": "isabella.johnson@address.com",
-    "affiliation": "affId0",
-    "affiliationId": {
-      "identifier":  "some_id0",
-      "type": "ROR"
-    },
-    "contact": false,
-    "roleInProject": "Role In Project"
+    "role": ["Researcher"],
+    "affiliation": null
   }
 ]

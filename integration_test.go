@@ -7,6 +7,7 @@ import (
 
 	"github.com/damap-org/damap-integration"
 	"github.com/damap-org/damap-integration/client"
+	"github.com/damap-org/damap-integration/domain"
 )
 
 func TestIntegration(t *testing.T) {
@@ -36,7 +37,7 @@ func TestIntegration(t *testing.T) {
 		t.Fatalf("❌ Failed to create client: %v", err)
 	}
 	t.Logf("📂 Requesting project list...")
-	projects, err := cli.GetProjects(context.Background())
+	projects, err := cli.SearchProjects(context.Background(), &domain.SearchProjectsParams{Query: "Search"})
 	if err != nil {
 		t.Fatalf("❌ Failed to request project list: %v", err)
 	}

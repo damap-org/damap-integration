@@ -52,18 +52,66 @@ type handler struct {
 	backend backend.ConfiguredBackend
 }
 
-func (h handler) GetProjects(_ context.Context, _ api.GetProjectsRequestObject) (api.GetProjectsResponseObject, error) {
-	projects, err := h.backend.GetProjects()
+func (h handler) GetProject(_ context.Context, request api.GetProjectRequestObject) (api.GetProjectResponseObject, error) {
+	project, err := h.backend.GetProject(request.ProjectId)
 	if err != nil {
 		return nil, err
 	}
-	return api.GetProjects200JSONResponse(projects), nil
+	return api.GetProject200JSONResponse(*project), nil
 }
 
 func (h handler) GetStaffForProject(_ context.Context, request api.GetStaffForProjectRequestObject) (api.GetStaffForProjectResponseObject, error) {
-	people, err := h.backend.GetPeople(request.ProjectId)
+	people, err := h.backend.GetStaffForProject(request.ProjectId)
 	if err != nil {
 		return nil, err
 	}
 	return api.GetStaffForProject200JSONResponse(people), nil
+}
+
+func (h handler) GetLeaderForProject(_ context.Context, request api.GetLeaderForProjectRequestObject) (api.GetLeaderForProjectResponseObject, error) {
+	leader, err := h.backend.GetLeaderForProject(request.ProjectId)
+	if err != nil {
+		return nil, err
+	}
+	return api.GetLeaderForProject200JSONResponse(*leader), nil
+}
+
+func (h handler) GetRecommendedProjects(_ context.Context, request api.GetRecommendedProjectsRequestObject) (api.GetRecommendedProjectsResponseObject, error) {
+	projects, err := h.backend.GetRecommendedProjects(request.Params.Email, request.Params.Name)
+	if err != nil {
+		return nil, err
+	}
+	return api.GetRecommendedProjects200JSONResponse(projects), nil
+}
+
+func (h handler) SearchProjects(_ context.Context, request api.SearchProjectsRequestObject) (api.SearchProjectsResponseObject, error) {
+	projects, err := h.backend.SearchProjects(request.Params.Query)
+	if err != nil {
+		return nil, err
+	}
+	return api.SearchProjects200JSONResponse(projects), nil
+}
+
+func (h handler) GetProjectSupplements(_ context.Context, request api.GetProjectSupplementsRequestObject) (api.GetProjectSupplementsResponseObject, error) {
+	supplements, err := h.backend.GetProjectSupplements(request.ProjectId)
+	if err != nil {
+		return nil, err
+	}
+	return api.GetProjectSupplements200JSONResponse(*supplements), nil
+}
+
+func (h handler) GetPerson(_ context.Context, request api.GetPersonRequestObject) (api.GetPersonResponseObject, error) {
+	person, err := h.backend.GetPerson(request.PersonId)
+	if err != nil {
+		return nil, err
+	}
+	return api.GetPerson200JSONResponse(*person), nil
+}
+
+func (h handler) SearchPersons(_ context.Context, request api.SearchPersonsRequestObject) (api.SearchPersonsResponseObject, error) {
+	persons, err := h.backend.SearchPersons(request.Params.Query)
+	if err != nil {
+		return nil, err
+	}
+	return api.SearchPersons200JSONResponse(persons), nil
 }

@@ -41,6 +41,13 @@ type Configuration interface {
 
 // ConfiguredBackend is a fully configured backend that is ready to use.
 type ConfiguredBackend interface {
-	GetProjects() ([]domain.Project, error)
-	GetPeople(projectId string) ([]domain.Person, error)
+	GetProject(projectId string) (*domain.Project, error)
+	GetStaffForProject(projectId string) ([]domain.Person, error)
+	GetLeaderForProject(projectId string) (*domain.Person, error)
+	GetRecommendedProjects(email string, name string) ([]domain.Project, error)
+	SearchProjects(query string) ([]domain.Project, error)
+	GetProjectSupplements(query string) (*domain.ProjectSupplement, error)
+
+	GetPerson(projectId string) (*domain.Person, error)
+	SearchPersons(query string) ([]domain.Person, error)
 }
