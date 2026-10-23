@@ -40,7 +40,7 @@ jobs:
         run: |
           go test ./...
   lint:
-    name: Lint (Skipped)
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,12 +50,8 @@ jobs:
         with:
           go-version-file: go.mod
           cache-dependency-path: go.sum
-      - name: Lint (Skipped)
-        # run: go tool github.com/golangci/golangci-lint/v2/cmd/golangci-lint run
-        run: |
-          echo "::warning::Linting temporarily disabled."
-          echo "Blocked by a golangci-lint v2 type-checking issue with generated code."
-          echo "If you can solve it please do :)"
+      - name: Lint
+        run: go tool github.com/golangci/golangci-lint/v2/cmd/golangci-lint run
   release:
     name: Lint
     runs-on: ubuntu-latest
