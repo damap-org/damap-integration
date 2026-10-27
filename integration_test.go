@@ -32,7 +32,7 @@ func TestIntegration(t *testing.T) {
 
 	t.Logf("⚙️ Creating integration client...")
 	//goland:noinspection HttpUrlsUsage
-	cli, err := client.New(fmt.Sprintf("http://%s/api/", integration.GetListen())) //nolint:gosec //This is a test case
+	cli, err := client.New(fmt.Sprintf("http://%s/api/", integration.GetListen()))
 	if err != nil {
 		t.Fatalf("❌ Failed to create client: %v", err)
 	}
@@ -43,5 +43,14 @@ func TestIntegration(t *testing.T) {
 	}
 	if len(projects) == 0 {
 		t.Fatalf("❌ The returned project list is empty!")
+	}
+
+	t.Logf("📂 Requesting project supplements...")
+	supplements, err := cli.GetProjectSupplements(context.Background(), "project-001")
+	if err != nil {
+		t.Fatalf("❌ Failed to request project supplements: %v", err)
+	}
+	if supplements == nil {
+		t.Fatal("❌ The returned project supplements are nil")
 	}
 }
