@@ -84,7 +84,7 @@ func (d *dummyBackend) SearchProjects(_ string) ([]domain.Project, error) {
 }
 
 func (d *dummyBackend) GetProjectSupplements(_ string) (*domain.ProjectSupplement, error) {
-	return nil, nil
+	return &domain.ProjectSupplement{}, nil
 }
 
 func (d *dummyBackend) GetPerson(_ string) (*domain.Person, error) {

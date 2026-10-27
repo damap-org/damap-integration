@@ -1,15 +1,11 @@
+version: "2"
 linters:
   enable:
     - bodyclose
     - contextcheck
-    - errcheck
     - errorlint
-    - exportloopref
     - gocritic
     - gosec
-    - gosimple
-    - govet
-    - ineffassign
     - nilerr
     - nilnil
     - noctx
@@ -17,8 +13,24 @@ linters:
     - prealloc
     - predeclared
     - reassign
-    - staticcheck
     - unconvert
     - unparam
-    - unused
     - wastedassign
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
