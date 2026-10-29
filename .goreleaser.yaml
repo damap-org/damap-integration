@@ -15,6 +15,7 @@ builds:
       - arm64
 dockers:
   - use: buildx
+    dockerfile: Dockerfile.release
     goarch: amd64
     build_flag_templates:
       - "--platform=linux/amd64"
@@ -23,6 +24,7 @@ dockers:
       - "ghcr.io/damap-org/damap-integration:{{ .Major }}.{{ .Minor }}-amd64"
       - "ghcr.io/damap-org/damap-integration:{{ .Major }}-amd64"
   - use: buildx
+    dockerfile: Dockerfile.release
     goarch: arm64
     build_flag_templates:
       - "--platform=linux/arm64"
