@@ -1,0 +1,12 @@
+.git
+.github
+.agents
+.aws
+.codex
+.env
+.env.*
+dist
+coverage*
+*.pem
+*.key
+damap-integration
