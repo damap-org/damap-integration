@@ -1,0 +1,9 @@
+# GoReleaser provides the binary in its build context.
+FROM gcr.io/distroless/static-debian12:nonroot
+
+COPY damap-integration /damap-integration
+
+ENV DAMAP_INTEGRATION_LISTEN=0.0.0.0:8080
+EXPOSE 8080
+
+ENTRYPOINT ["/damap-integration"]
