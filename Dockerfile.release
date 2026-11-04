@@ -3,7 +3,7 @@ FROM gcr.io/distroless/static-debian12:nonroot
 
 COPY damap-integration /damap-integration
 
-ENV DAMAP_INTEGRATION_LISTEN=0.0.0.0:8080
-EXPOSE 8080
+ENV DAMAP_INTEGRATION_LISTEN=0.0.0.0:8090
+EXPOSE 8090
 
 ENTRYPOINT ["/damap-integration"]

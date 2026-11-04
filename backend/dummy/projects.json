@@ -1,5 +1,6 @@
 [
   {
+    "id": "tissID001",
     "acronym": "AI-2026",
     "description": "Artificial intelligence research project",
     "end": "2028-12-31T00:00:00Z",
@@ -26,6 +27,7 @@
     "title": "Artificial Intelligence Research"
   },
   {
+    "id": "tissID002",
     "acronym": "DATA-2026",
     "description": "Research data management and preservation",
     "end": "2029-06-30T00:00:00Z",
@@ -52,6 +54,7 @@
     "title": "Research Data Management"
   },
   {
+    "id": "tissID003",
     "acronym": "CLIMATE-2026",
     "description": "Climate change and environmental monitoring",
     "end": "2030-12-31T00:00:00Z",

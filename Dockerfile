@@ -22,7 +22,7 @@ COPY --from=build /damap-integration /damap-integration
 
 USER 65532:65532
 
-ENV DAMAP_INTEGRATION_LISTEN=0.0.0.0:8080
-EXPOSE 8080
+ENV DAMAP_INTEGRATION_LISTEN=0.0.0.0:8090
+EXPOSE 8090
 
 ENTRYPOINT ["/damap-integration"]

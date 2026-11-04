@@ -35,13 +35,13 @@ func TestWithCLI(t *testing.T) {
 		},
 		"listen-addr": {
 			input: []string{
-				"--listen=0.0.0.0:8080",
+				"--listen=0.0.0.0:8090",
 			},
 			check: func(cfg damap_integration.Config) error {
 				if cfg.Listen == nil {
 					return fmt.Errorf("incorrect listen address returned: nil")
 				}
-				if cfg.Listen.String() != "0.0.0.0:8080" {
+				if cfg.Listen.String() != "0.0.0.0:8090" {
 					return fmt.Errorf("incorrect listen address returned: %s", cfg.Listen.String())
 				}
 				return nil
@@ -49,13 +49,13 @@ func TestWithCLI(t *testing.T) {
 		},
 		"listen-addr-split": {
 			input: []string{
-				"--listen", "0.0.0.0:8080",
+				"--listen", "0.0.0.0:8090",
 			},
 			check: func(cfg damap_integration.Config) error {
 				if cfg.Listen == nil {
 					return fmt.Errorf("incorrect listen address returned: nil")
 				}
-				if cfg.Listen.String() != "0.0.0.0:8080" {
+				if cfg.Listen.String() != "0.0.0.0:8090" {
 					return fmt.Errorf("incorrect listen address returned: %s", cfg.Listen.String())
 				}
 				return nil
@@ -63,7 +63,7 @@ func TestWithCLI(t *testing.T) {
 		},
 		"listen-addr-multiple": {
 			input: []string{
-				"--listen=0.0.0.0:8080",
+				"--listen=0.0.0.0:8090",
 				"--listen=0.0.0.0:8443",
 			},
 			shouldError: true,

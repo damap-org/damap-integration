@@ -61,18 +61,11 @@ func (siw *ServerInterfaceWrapper) SearchPersons(w http.ResponseWriter, r *http.
 	// Parameter object where we will unmarshal all parameters from the context
 	var params SearchPersonsParams
 
-	// ------------- Required query parameter "query" -------------
+	// ------------- Optional query parameter "q" -------------
 
-	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
-
-	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
-		return
-	}
-
-	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	err = runtime.BindQueryParameter("form", true, false, "q", r.URL.Query(), &params.Q)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "q", Err: err})
 		return
 	}
 
@@ -120,18 +113,11 @@ func (siw *ServerInterfaceWrapper) SearchProjects(w http.ResponseWriter, r *http
 	// Parameter object where we will unmarshal all parameters from the context
 	var params SearchProjectsParams
 
-	// ------------- Required query parameter "query" -------------
+	// ------------- Optional query parameter "q" -------------
 
-	if paramValue := r.URL.Query().Get("query"); paramValue != "" {
-
-	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "query"})
-		return
-	}
-
-	err = runtime.BindQueryParameter("form", true, true, "query", r.URL.Query(), &params.Query)
+	err = runtime.BindQueryParameter("form", true, false, "q", r.URL.Query(), &params.Q)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "query", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "q", Err: err})
 		return
 	}
 
@@ -154,31 +140,17 @@ func (siw *ServerInterfaceWrapper) GetRecommendedProjects(w http.ResponseWriter,
 	// Parameter object where we will unmarshal all parameters from the context
 	var params GetRecommendedProjectsParams
 
-	// ------------- Required query parameter "email" -------------
+	// ------------- Optional query parameter "email" -------------
 
-	if paramValue := r.URL.Query().Get("email"); paramValue != "" {
-
-	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "email"})
-		return
-	}
-
-	err = runtime.BindQueryParameter("form", true, true, "email", r.URL.Query(), &params.Email)
+	err = runtime.BindQueryParameter("form", true, false, "email", r.URL.Query(), &params.Email)
 	if err != nil {
 		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "email", Err: err})
 		return
 	}
 
-	// ------------- Required query parameter "name" -------------
+	// ------------- Optional query parameter "name" -------------
 
-	if paramValue := r.URL.Query().Get("name"); paramValue != "" {
-
-	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "name"})
-		return
-	}
-
-	err = runtime.BindQueryParameter("form", true, true, "name", r.URL.Query(), &params.Name)
+	err = runtime.BindQueryParameter("form", true, false, "name", r.URL.Query(), &params.Name)
 	if err != nil {
 		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "name", Err: err})
 		return
@@ -435,7 +407,7 @@ type SearchPersonsResponseObject interface {
 	VisitSearchPersonsResponse(w http.ResponseWriter) error
 }
 
-type SearchPersons200JSONResponse []Person
+type SearchPersons200JSONResponse SearchPersonsResponseBody
 
 func (response SearchPersons200JSONResponse) VisitSearchPersonsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -523,7 +495,7 @@ type SearchProjectsResponseObject interface {
 	VisitSearchProjectsResponse(w http.ResponseWriter) error
 }
 
-type SearchProjects200JSONResponse []Project
+type SearchProjects200JSONResponse SearchProjectsResponseBody
 
 func (response SearchProjects200JSONResponse) VisitSearchProjectsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -567,7 +539,7 @@ type GetRecommendedProjectsResponseObject interface {
 	VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error
 }
 
-type GetRecommendedProjects200JSONResponse []Project
+type GetRecommendedProjects200JSONResponse []DAMAPProject
 
 func (response GetRecommendedProjects200JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -611,7 +583,7 @@ type GetProjectResponseObject interface {
 	VisitGetProjectResponse(w http.ResponseWriter) error
 }
 
-type GetProject200JSONResponse Project
+type GetProject200JSONResponse DAMAPProject
 
 func (response GetProject200JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
