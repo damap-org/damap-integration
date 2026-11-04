@@ -21,6 +21,18 @@ type BadGatewayError = Error
 // BadRequestError defines model for BadRequestError.
 type BadRequestError = Error
 
+// DAMAPProject defines model for DAMAPProject.
+type DAMAPProject struct {
+	Acronym     *string    `json:"acronym,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	End         *time.Time `json:"end,omitempty"`
+	Funding     *[]Funding `json:"funding,omitempty"`
+	Id          string     `json:"id"`
+	ProjectId   []ID       `json:"project_id"`
+	Start       *time.Time `json:"start,omitempty"`
+	Title       string     `json:"title"`
+}
+
 // Error defines model for Error.
 type Error struct {
 	Message string `json:"message"`
@@ -28,9 +40,9 @@ type Error struct {
 
 // Funding defines model for Funding.
 type Funding struct {
-	FunderId      *ID     `json:"funderId,omitempty"`
+	FunderId      *ID     `json:"funder_id,omitempty"`
 	FundingStatus *string `json:"fundingStatus,omitempty"`
-	GrantId       *ID     `json:"grantId,omitempty"`
+	GrantId       *ID     `json:"grant_id,omitempty"`
 }
 
 // ID defines model for ID.
@@ -57,7 +69,7 @@ type Project struct {
 	Description *string    `json:"description,omitempty"`
 	End         *time.Time `json:"end,omitempty"`
 	Funding     *[]Funding `json:"funding,omitempty"`
-	ProjectId   []ID       `json:"projectId"`
+	ProjectId   []ID       `json:"project_id"`
 	Start       *time.Time `json:"start,omitempty"`
 	Title       string     `json:"title"`
 }
@@ -73,23 +85,35 @@ type ProjectSupplement struct {
 	SensitiveData      *bool `json:"sensitiveData,omitempty"`
 }
 
+// SearchPersonsResponseBody defines model for SearchPersonsResponseBody.
+type SearchPersonsResponseBody struct {
+	Items      *[]Person `json:"items,omitempty"`
+	TotalItems *int      `json:"totalItems,omitempty"`
+}
+
+// SearchProjectsResponseBody defines model for SearchProjectsResponseBody.
+type SearchProjectsResponseBody struct {
+	Items      *[]DAMAPProject `json:"items,omitempty"`
+	TotalItems *int            `json:"totalItems,omitempty"`
+}
+
 // SearchPersonsParams defines parameters for SearchPersons.
 type SearchPersonsParams struct {
-	// Query Search query used to find persons
-	Query string `form:"query" json:"query"`
+	// Q Search query used to find persons
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
 }
 
 // SearchProjectsParams defines parameters for SearchProjects.
 type SearchProjectsParams struct {
-	// Query Search query used to find projects
-	Query string `form:"query" json:"query"`
+	// Q Search query used to find projects
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
 }
 
 // GetRecommendedProjectsParams defines parameters for GetRecommendedProjects.
 type GetRecommendedProjectsParams struct {
 	// Email User email used to find recommended projects for user
-	Email string `form:"email" json:"email"`
+	Email *string `form:"email,omitempty" json:"email,omitempty"`
 
 	// Name User name used to find recommended projects for user
-	Name string `form:"name" json:"name"`
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
 }

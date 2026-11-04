@@ -37,11 +37,12 @@ func TestIntegration(t *testing.T) {
 		t.Fatalf("❌ Failed to create client: %v", err)
 	}
 	t.Logf("📂 Requesting project list...")
-	projects, err := cli.SearchProjects(context.Background(), &domain.SearchProjectsParams{Query: "Search"})
+	q := "Search"
+	projects, err := cli.SearchProjects(context.Background(), &domain.SearchProjectsParams{Q: &q})
 	if err != nil {
 		t.Fatalf("❌ Failed to request project list: %v", err)
 	}
-	if len(projects) == 0 {
+	if *projects.TotalItems == 0 {
 		t.Fatalf("❌ The returned project list is empty!")
 	}
 

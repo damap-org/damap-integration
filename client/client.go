@@ -18,22 +18,22 @@ func New(endpoint string) (Client, error) {
 }
 
 type Client interface {
-	GetProject(ctx context.Context, projectId string) (*domain.Project, error)
+	GetProject(ctx context.Context, projectId string) (*domain.DAMAPProject, error)
 	GetStaffForProject(ctx context.Context, projectId string) ([]domain.Person, error)
 	GetLeaderForProject(ctx context.Context, projectId string) (*domain.Person, error)
-	GetRecommendedProjects(ctx context.Context, params *domain.GetRecommendedProjectsParams) ([]domain.Project, error)
-	SearchProjects(ctx context.Context, params *domain.SearchProjectsParams) ([]domain.Project, error)
+	GetRecommendedProjects(ctx context.Context, params *domain.GetRecommendedProjectsParams) ([]domain.DAMAPProject, error)
+	SearchProjects(ctx context.Context, params *domain.SearchProjectsParams) (*domain.SearchProjectsResponseBody, error)
 	GetProjectSupplements(ctx context.Context, projectId string) (*domain.ProjectSupplement, error)
 
 	GetPerson(ctx context.Context, personId string) (*domain.Person, error)
-	SearchPersons(ctx context.Context, params *domain.SearchPersonsParams) ([]domain.Person, error)
+	SearchPersons(ctx context.Context, params *domain.SearchPersonsParams) (*domain.SearchPersonsResponseBody, error)
 }
 
 type client struct {
 	lowLevelClient cli.ClientWithResponsesInterface
 }
 
-func (c client) GetProject(ctx context.Context, projectId string) (*domain.Project, error) {
+func (c client) GetProject(ctx context.Context, projectId string) (*domain.DAMAPProject, error) {
 	resp, err := c.lowLevelClient.GetProjectWithResponse(ctx, projectId)
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
@@ -117,7 +117,7 @@ func (c client) GetLeaderForProject(ctx context.Context, projectId string) (*dom
 	}
 }
 
-func (c client) GetRecommendedProjects(ctx context.Context, query *domain.GetRecommendedProjectsParams) ([]domain.Project, error) {
+func (c client) GetRecommendedProjects(ctx context.Context, query *domain.GetRecommendedProjectsParams) ([]domain.DAMAPProject, error) {
 	resp, err := c.lowLevelClient.GetRecommendedProjectsWithResponse(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
@@ -145,14 +145,14 @@ func (c client) GetRecommendedProjects(ctx context.Context, query *domain.GetRec
 	}
 }
 
-func (c client) SearchProjects(ctx context.Context, query *domain.SearchProjectsParams) ([]domain.Project, error) {
+func (c client) SearchProjects(ctx context.Context, query *domain.SearchProjectsParams) (*domain.SearchProjectsResponseBody, error) {
 	resp, err := c.lowLevelClient.SearchProjectsWithResponse(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
 	switch resp.StatusCode() {
 	case http.StatusOK:
-		return *resp.JSON200, nil
+		return resp.JSON200, nil
 	case http.StatusBadRequest:
 		if resp.JSON400 != nil {
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON400)
@@ -229,14 +229,14 @@ func (c client) GetPerson(ctx context.Context, personId string) (*domain.Person,
 	}
 }
 
-func (c client) SearchPersons(ctx context.Context, query *domain.SearchPersonsParams) ([]domain.Person, error) {
+func (c client) SearchPersons(ctx context.Context, query *domain.SearchPersonsParams) (*domain.SearchPersonsResponseBody, error) {
 	resp, err := c.lowLevelClient.SearchPersonsWithResponse(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("request failed: %w", err)
 	}
 	switch resp.StatusCode() {
 	case http.StatusOK:
-		return *resp.JSON200, nil
+		return resp.JSON200, nil
 	case http.StatusBadRequest:
 		if resp.JSON400 != nil {
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON400)

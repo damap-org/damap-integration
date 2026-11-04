@@ -1,3 +1,5 @@
+# DAMAP Backend uses a OpenApi file that is essentially identical to this one
+# For future work rewrite this file to just link to DAMAPs generic integration OpenApi file (needs code refactoring)
 openapi: 3.0.4
 info:
   title: DAMAP integration API
@@ -8,7 +10,7 @@ info:
     url: https://opensource.org/license/MIT
   version: 1.0.12
 servers:
-  - url: http://localhost:8080/api/
+  - url: http://localhost:8090/api/
 paths:
   /projects/{projectId}:
     get:
@@ -23,12 +25,12 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: Project with id
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/DAMAPProject'
         400:
           description: You have sent an invalid request. Please fix your request and try again.
           content:
@@ -60,7 +62,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: A list of persons associated with the project.
           content:
             application/json:
@@ -99,7 +101,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: Project supplement for project with id
           content:
             application/json:
@@ -136,7 +138,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: A persons leading the project.
           content:
             application/json:
@@ -168,25 +170,25 @@ paths:
       parameters:
         - name: email
           in: query
-          required: true
+          required: false
           description: User email used to find recommended projects for user
           schema:
             type: string
         - name: name
           in: query
-          required: true
+          required: false
           description: User name used to find recommended projects for user
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: RecommendedProjects
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Project'
+                  $ref: '#/components/schemas/DAMAPProject'
         400:
           description: You have sent an invalid request. Please fix your request and try again.
           content:
@@ -211,21 +213,19 @@ paths:
       description: Returns projects matching the provided query
       operationId: searchProjects
       parameters:
-        - name: query
+        - name: q
           in: query
-          required: true
+          required: false
           description: Search query used to find projects
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: Projects matching the search query
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Project'
+                $ref: "#/components/schemas/SearchProjectsResponseBody"
         400:
           description: You have sent an invalid request. Please fix your request and try again.
           content:
@@ -257,7 +257,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: Person with id
           content:
             application/json:
@@ -287,21 +287,19 @@ paths:
       description: Returns persons matching the provided query
       operationId: searchPersons
       parameters:
-        - name: query
+        - name: q
           in: query
-          required: true
+          required: false
           description: Search query used to find persons
           schema:
             type: string
       responses:
-        '200':
+        200:
           description: Persons matching the search query
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Person'
+                $ref: "#/components/schemas/SearchPersonsResponseBody"
         400:
           description: You have sent an invalid request. Please fix your request and try again.
           content:
@@ -321,13 +319,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/BadGatewayError"
 components:
+  # Maybe link to common standard objects so they dont need to be defined again
   schemas:
     Project:
       type: object
       properties:
         acronym:
           type: string
-        projectId:
+        project_id:
           type: array
           items:
             $ref: "#/components/schemas/ID"
@@ -346,17 +345,27 @@ components:
           type: string
           format: date-time
       required:
-        - projectId
+        - project_id
         - title
     Funding:
       type: object
       properties:
-        funderId:
+        funder_id:
           $ref: "#/components/schemas/ID"
-        grantId:
+        grant_id:
           $ref: "#/components/schemas/ID"
         fundingStatus:
           type: string
+    # Common Standard project with a system ID
+    DAMAPProject:
+      allOf:
+        - $ref: "#/components/schemas/Project"
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
     ID:
       type: object
       properties:
@@ -412,6 +421,26 @@ components:
       required:
         - affiliationId
         - name
+    SearchProjectsResponseBody:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          minimum: 0
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/DAMAPProject"
+    SearchPersonsResponseBody:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          minimum: 0
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Person"
     InternalError:
       $ref: "#/components/schemas/Error"
     BadGatewayError:

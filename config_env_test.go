@@ -25,13 +25,13 @@ func TestEnvParsing(t *testing.T) {
 		},
 		"listen-addr": {
 			input: []string{
-				"DAMAP_INTEGRATION_LISTEN=0.0.0.0:8080",
+				"DAMAP_INTEGRATION_LISTEN=0.0.0.0:8090",
 			},
 			check: func(cfg damap_integration.Config) error {
 				if cfg.Listen == nil {
 					return fmt.Errorf("incorrect listen address returned: nil")
 				}
-				if cfg.Listen.String() != "0.0.0.0:8080" {
+				if cfg.Listen.String() != "0.0.0.0:8090" {
 					return fmt.Errorf("incorrect listen address returned: %s", cfg.Listen.String())
 				}
 				return nil
@@ -39,7 +39,7 @@ func TestEnvParsing(t *testing.T) {
 		},
 		"listen-addr-multiple": {
 			input: []string{
-				"DAMAP_INTEGRATION_LISTEN=0.0.0.0:8080",
+				"DAMAP_INTEGRATION_LISTEN=0.0.0.0:8090",
 				"DAMAP_INTEGRATION_LISTEN=0.0.0.0:8443",
 			},
 			check: func(cfg damap_integration.Config) error {

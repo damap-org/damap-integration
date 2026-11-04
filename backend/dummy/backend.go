@@ -19,7 +19,7 @@ const ID = "dummy"
 
 func init() {
 	var people []domain.Person
-	var projects []domain.Project
+	var projects []domain.DAMAPProject
 	if err := json.Unmarshal(peopleData, &people); err != nil {
 		panic(fmt.Errorf("bug: failed to unmarshal dummy people data: %w", err))
 	}
@@ -40,7 +40,7 @@ func New() backend.Descriptor {
 
 type dummyBackend struct {
 	people   []domain.Person
-	projects []domain.Project
+	projects []domain.DAMAPProject
 }
 
 func (d *dummyBackend) GetName() string {
@@ -63,7 +63,7 @@ func (d *dummyBackend) GetConfiguration() backend.Configuration {
 	return d
 }
 
-func (d *dummyBackend) GetProject(_ string) (*domain.Project, error) {
+func (d *dummyBackend) GetProject(_ string) (*domain.DAMAPProject, error) {
 	return &d.projects[0], nil
 }
 
@@ -75,12 +75,16 @@ func (d *dummyBackend) GetLeaderForProject(_ string) (*domain.Person, error) {
 	return &d.people[0], nil
 }
 
-func (d *dummyBackend) GetRecommendedProjects(_ string, _ string) ([]domain.Project, error) {
+func (d *dummyBackend) GetRecommendedProjects(_ *string, _ *string) ([]domain.DAMAPProject, error) {
 	return d.projects, nil
 }
 
-func (d *dummyBackend) SearchProjects(_ string) ([]domain.Project, error) {
-	return d.projects, nil
+func (d *dummyBackend) SearchProjects(_ *string) (*domain.SearchProjectsResponseBody, error) {
+	totalItems := len(d.projects)
+	return &domain.SearchProjectsResponseBody{
+		Items:      &d.projects,
+		TotalItems: &totalItems,
+	}, nil
 }
 
 func (d *dummyBackend) GetProjectSupplements(_ string) (*domain.ProjectSupplement, error) {
@@ -91,6 +95,10 @@ func (d *dummyBackend) GetPerson(_ string) (*domain.Person, error) {
 	return &d.people[0], nil
 }
 
-func (d *dummyBackend) SearchPersons(_ string) ([]domain.Person, error) {
-	return d.people, nil
+func (d *dummyBackend) SearchPersons(_ *string) (*domain.SearchPersonsResponseBody, error) {
+	totalItems := len(d.people)
+	return &domain.SearchPersonsResponseBody{
+		Items:      &d.people,
+		TotalItems: &totalItems,
+	}, nil
 }

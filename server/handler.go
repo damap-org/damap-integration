@@ -85,11 +85,11 @@ func (h handler) GetRecommendedProjects(_ context.Context, request api.GetRecomm
 }
 
 func (h handler) SearchProjects(_ context.Context, request api.SearchProjectsRequestObject) (api.SearchProjectsResponseObject, error) {
-	projects, err := h.backend.SearchProjects(request.Params.Query)
+	projects, err := h.backend.SearchProjects(request.Params.Q)
 	if err != nil {
 		return nil, err
 	}
-	return api.SearchProjects200JSONResponse(projects), nil
+	return api.SearchProjects200JSONResponse(*projects), nil
 }
 
 func (h handler) GetProjectSupplements(_ context.Context, request api.GetProjectSupplementsRequestObject) (api.GetProjectSupplementsResponseObject, error) {
@@ -109,9 +109,9 @@ func (h handler) GetPerson(_ context.Context, request api.GetPersonRequestObject
 }
 
 func (h handler) SearchPersons(_ context.Context, request api.SearchPersonsRequestObject) (api.SearchPersonsResponseObject, error) {
-	persons, err := h.backend.SearchPersons(request.Params.Query)
+	persons, err := h.backend.SearchPersons(request.Params.Q)
 	if err != nil {
 		return nil, err
 	}
-	return api.SearchPersons200JSONResponse(persons), nil
+	return api.SearchPersons200JSONResponse(*persons), nil
 }

@@ -44,7 +44,7 @@ type Config struct {
 
 	// Listen holds the IP address and port to bind the non-secure listener to.
 	// Set this to "" to disable listening on a non-secure port.
-	Listen *netip.AddrPort `default:"127.0.0.1:8080" cli:"listen" env:"DAMAP_INTEGRATION_LISTEN" help:"Address to listen on without encryption."`
+	Listen *netip.AddrPort `default:"127.0.0.1:8090" cli:"listen" env:"DAMAP_INTEGRATION_LISTEN" help:"Address to listen on without encryption."`
 
 	// ListenTLS holds the IP address and port to bind the secure listener to.
 	// Set this to "" to disable listening on a secure port.
