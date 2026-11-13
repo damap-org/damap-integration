@@ -46,6 +46,11 @@ func (c client) GetProject(ctx context.Context, projectId string) (*domain.DAMAP
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON400)
 		}
 		return nil, fmt.Errorf("request failed with 400 status code")
+	case http.StatusNotFound:
+		if resp.JSON404 != nil {
+			return nil, fmt.Errorf("%w: %s", domain.ErrNotFound, resp.JSON404.Message)
+		}
+		return nil, domain.ErrNotFound
 	case http.StatusInternalServerError:
 		if resp.JSON500 != nil {
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON500)
@@ -102,6 +107,11 @@ func (c client) GetLeaderForProject(ctx context.Context, projectId string) (*dom
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON400)
 		}
 		return nil, fmt.Errorf("request failed with 400 status code")
+	case http.StatusNotFound:
+		if resp.JSON404 != nil {
+			return nil, fmt.Errorf("%w: %s", domain.ErrNotFound, resp.JSON404.Message)
+		}
+		return nil, domain.ErrNotFound
 	case http.StatusInternalServerError:
 		if resp.JSON500 != nil {
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON500)
@@ -214,6 +224,11 @@ func (c client) GetPerson(ctx context.Context, personId string) (*domain.Person,
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON400)
 		}
 		return nil, fmt.Errorf("request failed with 400 status code")
+	case http.StatusNotFound:
+		if resp.JSON404 != nil {
+			return nil, fmt.Errorf("%w: %s", domain.ErrNotFound, resp.JSON404.Message)
+		}
+		return nil, domain.ErrNotFound
 	case http.StatusInternalServerError:
 		if resp.JSON500 != nil {
 			return nil, fmt.Errorf("request failed (%w)", resp.JSON500)
