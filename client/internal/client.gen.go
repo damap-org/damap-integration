@@ -641,6 +641,7 @@ type GetPersonResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *Person
 	JSON400      *BadRequestError
+	JSON404      *NotFoundError
 	JSON500      *InternalError
 	JSON502      *BadGatewayError
 }
@@ -716,6 +717,7 @@ type GetProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *DAMAPProject
 	JSON400      *BadRequestError
+	JSON404      *NotFoundError
 	JSON500      *InternalError
 	JSON502      *BadGatewayError
 }
@@ -741,6 +743,7 @@ type GetLeaderForProjectResponse struct {
 	HTTPResponse *http.Response
 	JSON200      *Person
 	JSON400      *BadRequestError
+	JSON404      *NotFoundError
 	JSON500      *InternalError
 	JSON502      *BadGatewayError
 }
@@ -958,6 +961,13 @@ func ParseGetPersonResponse(rsp *http.Response) (*GetPersonResponse, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest InternalError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -1099,6 +1109,13 @@ func ParseGetProjectResponse(rsp *http.Response) (*GetProjectResponse, error) {
 		}
 		response.JSON400 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest InternalError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -1145,6 +1162,13 @@ func ParseGetLeaderForProjectResponse(rsp *http.Response) (*GetLeaderForProjectR
 			return nil, err
 		}
 		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
 		var dest InternalError
