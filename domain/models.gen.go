@@ -54,6 +54,9 @@ type ID struct {
 // InternalError defines model for InternalError.
 type InternalError = Error
 
+// NotFoundError defines model for NotFoundError.
+type NotFoundError = Error
+
 // Person defines model for Person.
 type Person struct {
 	Affiliation   *[]Affiliation       `json:"affiliation,omitempty"`

@@ -469,6 +469,15 @@ func (response GetPerson400JSONResponse) VisitGetPersonResponse(w http.ResponseW
 	return json.NewEncoder(w).Encode(response)
 }
 
+type GetPerson404JSONResponse NotFoundError
+
+func (response GetPerson404JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
 type GetPerson500JSONResponse InternalError
 
 func (response GetPerson500JSONResponse) VisitGetPersonResponse(w http.ResponseWriter) error {
@@ -601,6 +610,15 @@ func (response GetProject400JSONResponse) VisitGetProjectResponse(w http.Respons
 	return json.NewEncoder(w).Encode(response)
 }
 
+type GetProject404JSONResponse NotFoundError
+
+func (response GetProject404JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
 type GetProject500JSONResponse InternalError
 
 func (response GetProject500JSONResponse) VisitGetProjectResponse(w http.ResponseWriter) error {
@@ -641,6 +659,15 @@ type GetLeaderForProject400JSONResponse BadRequestError
 func (response GetLeaderForProject400JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetLeaderForProject404JSONResponse NotFoundError
+
+func (response GetLeaderForProject404JSONResponse) VisitGetLeaderForProjectResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
 
 	return json.NewEncoder(w).Encode(response)
 }

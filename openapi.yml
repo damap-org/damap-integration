@@ -37,6 +37,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadRequestError"
+        404:
+          description: Project not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
         500:
           description: The integration server encountered an internal error.
           content:
@@ -150,6 +156,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadRequestError"
+        404:
+          description: No leader found for the project.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
         500:
           description: The integration server encountered an internal error.
           content:
@@ -269,6 +281,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadRequestError"
+        404:
+          description: Person not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
         500:
           description: The integration server encountered an internal error.
           content:
@@ -444,6 +462,8 @@ components:
     InternalError:
       $ref: "#/components/schemas/Error"
     BadGatewayError:
+      $ref: "#/components/schemas/Error"
+    NotFoundError:
       $ref: "#/components/schemas/Error"
     BadRequestError:
       $ref: "#/components/schemas/Error"
