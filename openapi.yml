@@ -207,6 +207,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadRequestError"
+        404:
+          description: There is no leader for the requested project.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundError"
         500:
           description: The integration server encountered an internal error.
           content:
@@ -414,7 +420,7 @@ components:
     Person:
       type: object
       properties:
-        contributorId:
+        contributor_id:
           $ref: "#/components/schemas/ID"
         name:
           type: string
@@ -432,12 +438,12 @@ components:
     Affiliation:
       type: object
       properties:
-        affiliationId:
+        affiliation_id:
           $ref: "#/components/schemas/ID"
         name:
           type: string
       required:
-        - affiliationId
+        - affiliation_id
         - name
     SearchProjectsResponseBody:
       type: object
@@ -463,9 +469,9 @@ components:
       $ref: "#/components/schemas/Error"
     BadGatewayError:
       $ref: "#/components/schemas/Error"
-    NotFoundError:
-      $ref: "#/components/schemas/Error"
     BadRequestError:
+      $ref: "#/components/schemas/Error"
+    NotFoundError:
       $ref: "#/components/schemas/Error"
     Error:
       type: object

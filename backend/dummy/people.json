@@ -2,7 +2,7 @@
   {
     "name": "Alice Smith",
     "mbox": "alice.smith@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "alice-smith-001",
       "type": "other"
     },
@@ -12,7 +12,7 @@
   {
     "name": "Bob Johnson",
     "mbox": "bob.johnson@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "bob-johnson-002",
       "type": "other"
     },
@@ -22,7 +22,7 @@
   {
     "name": "Carol Williams",
     "mbox": "carol.williams@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "carol-williams-003",
       "type": "other"
     },
@@ -32,7 +32,7 @@
   {
     "name": "David Brown",
     "mbox": "david.brown@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "david-brown-004",
       "type": "other"
     },
@@ -42,7 +42,7 @@
   {
     "name": "Eva Miller",
     "mbox": "eva.miller@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "eva-miller-005",
       "type": "other"
     },
@@ -52,7 +52,7 @@
   {
     "name": "Frank Davis",
     "mbox": "frank.davis@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "frank-davis-006",
       "type": "other"
     },
@@ -62,7 +62,7 @@
   {
     "name": "Grace Wilson",
     "mbox": "grace.wilson@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "grace-wilson-007",
       "type": "other"
     },
@@ -72,7 +72,7 @@
   {
     "name": "Henry Moore",
     "mbox": "henry-moore@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "henry-moore-008",
       "type": "other"
     },
@@ -82,7 +82,7 @@
   {
     "name": "Irene Taylor",
     "mbox": "irene.taylor@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "irene-taylor-009",
       "type": "other"
     },
@@ -92,7 +92,7 @@
   {
     "name": "Jack Anderson",
     "mbox": "jack.anderson@example.com",
-    "contributorId": {
+    "contributor_id": {
       "identifier": "jack-anderson-010",
       "type": "other"
     },
