@@ -41,7 +41,7 @@ type Error struct {
 // Funding defines model for Funding.
 type Funding struct {
 	FunderId      *ID     `json:"funder_id,omitempty"`
-	FundingStatus *string `json:"fundingStatus,omitempty"`
+	FundingStatus *string `json:"funding_status,omitempty"`
 	GrantId       *ID     `json:"grant_id,omitempty"`
 }
 

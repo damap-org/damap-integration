@@ -378,7 +378,7 @@ components:
           $ref: "#/components/schemas/ID"
         grant_id:
           $ref: "#/components/schemas/ID"
-        fundingStatus:
+        funding_status:
           type: string
     # Common Standard project with a system ID
     DAMAPProject:
