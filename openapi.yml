@@ -372,7 +372,7 @@ components:
           $ref: "#/components/schemas/ID"
         grant_id:
           $ref: "#/components/schemas/ID"
-        fundingStatus:
+        funding_status:
           type: string
     # Common Standard project with a system ID
     DAMAPProject:
@@ -414,7 +414,7 @@ components:
     Person:
       type: object
       properties:
-        contributorId:
+        contributor_id:
           $ref: "#/components/schemas/ID"
         name:
           type: string
@@ -432,12 +432,12 @@ components:
     Affiliation:
       type: object
       properties:
-        affiliationId:
+        affiliation_id:
           $ref: "#/components/schemas/ID"
         name:
           type: string
       required:
-        - affiliationId
+        - affiliation_id
         - name
     SearchProjectsResponseBody:
       type: object
@@ -463,9 +463,9 @@ components:
       $ref: "#/components/schemas/Error"
     BadGatewayError:
       $ref: "#/components/schemas/Error"
-    NotFoundError:
-      $ref: "#/components/schemas/Error"
     BadRequestError:
+      $ref: "#/components/schemas/Error"
+    NotFoundError:
       $ref: "#/components/schemas/Error"
     Error:
       type: object

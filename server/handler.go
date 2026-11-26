@@ -70,7 +70,7 @@ func (h handler) GetStaffForProject(_ context.Context, request api.GetStaffForPr
 
 func (h handler) GetLeaderForProject(_ context.Context, request api.GetLeaderForProjectRequestObject) (api.GetLeaderForProjectResponseObject, error) {
 	leader, err := h.backend.GetLeaderForProject(request.ProjectId)
-	if errors.Is(err, domain.ErrNotFound) {
+	if errors.As(err, &domain.NotFoundError{}) {
 		return api.GetLeaderForProject404JSONResponse{Message: err.Error()}, nil
 	}
 	if err != nil {

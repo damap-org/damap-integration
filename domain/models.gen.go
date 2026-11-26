@@ -11,7 +11,7 @@ import (
 
 // Affiliation defines model for Affiliation.
 type Affiliation struct {
-	AffiliationId ID     `json:"affiliationId"`
+	AffiliationId ID     `json:"affiliation_id"`
 	Name          string `json:"name"`
 }
 
@@ -41,7 +41,7 @@ type Error struct {
 // Funding defines model for Funding.
 type Funding struct {
 	FunderId      *ID     `json:"funder_id,omitempty"`
-	FundingStatus *string `json:"fundingStatus,omitempty"`
+	FundingStatus *string `json:"funding_status,omitempty"`
 	GrantId       *ID     `json:"grant_id,omitempty"`
 }
 
@@ -60,7 +60,7 @@ type NotFoundError = Error
 // Person defines model for Person.
 type Person struct {
 	Affiliation   *[]Affiliation       `json:"affiliation,omitempty"`
-	ContributorId *ID                  `json:"contributorId,omitempty"`
+	ContributorId *ID                  `json:"contributor_id,omitempty"`
 	Mbox          *openapi_types.Email `json:"mbox,omitempty"`
 	Name          *string              `json:"name,omitempty"`
 	Role          *[]string            `json:"role,omitempty"`

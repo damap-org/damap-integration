@@ -17,7 +17,7 @@ type noLeaderBackend struct {
 }
 
 func (noLeaderBackend) GetLeaderForProject(id string) (*domain.Person, error) {
-	return nil, fmt.Errorf("%w: project %q has no marked leader", domain.ErrNotFound, id)
+	return nil, fmt.Errorf("%w: project %q has no marked leader", domain.NotFoundError{Message: "not found"}, id)
 }
 
 func TestGetLeaderForProjectNotFound(t *testing.T) {
