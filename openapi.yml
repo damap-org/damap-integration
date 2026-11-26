@@ -207,12 +207,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BadRequestError"
-        404:
-          description: There is no leader for the requested project.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundError"
         500:
           description: The integration server encountered an internal error.
           content:

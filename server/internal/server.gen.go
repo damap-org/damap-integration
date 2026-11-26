@@ -566,15 +566,6 @@ func (response GetRecommendedProjects400JSONResponse) VisitGetRecommendedProject
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetRecommendedProjects404JSONResponse NotFoundError
-
-func (response GetRecommendedProjects404JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
 type GetRecommendedProjects500JSONResponse InternalError
 
 func (response GetRecommendedProjects500JSONResponse) VisitGetRecommendedProjectsResponse(w http.ResponseWriter) error {
